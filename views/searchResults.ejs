@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
+    />
+    <script src="/javascripts/autocomplete.js"></script>
+    <script defer src="/javascripts/curlData.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="row my-2 navrow shapeit">
+      <div class="col-2 ps-3 text-start">
+        <a href="/" class="logo"></a>
+      </div>
+      <div class="col-6 search">
+        <div class="autocomplete" style="width: 100%">
+          <form action="/search" method="GET" name="searchform">
+            <input
+              type="text"
+              name="search"
+              class="autocompleteMVS form-control"
+              placeholder="ابحث عن أو مسلسل ..."
+              oninput="curl(this.value)"
+            />
+            <input type="submit" value="" hidden />
+          </form>
+          <div id="myInputautocomplete-list" class="autocomplete-items"></div>
+        </div>
+      </div>
+      <div class="col-2 subscribe">
+        <a href="" class="c btn btn-primary">إشترك مجانا</a>
+      </div>
+      <div class="col-2 login">
+        <a href="" class="d btn btn-primary">تسجيل الدخول</a>
+      </div>
+    </div>
+    <div class="row main">
+      <div class="col-2 right">
+        <table>
+          <tr>
+            <td>🏠</td>
+            <td>منصة فيلم</td>
+          </tr>
+          <tr>
+            <td>📙</td>
+            <td>مكتبتي</td>
+          </tr>
+          <tr>
+            <td>🎥</td>
+            <td>أفلام</td>
+          </tr>
+          <tr>
+            <td>📺</td>
+            <td>مسلسلات</td>
+          </tr>
+          <tr>
+            <td>👴</td>
+            <td>مسرحيات</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-7 interface">
+        <div class="row">
+          <% output.result.forEach(element => { %>
+          <div class="col-4 my-4">
+            <div class="card">
+              <img
+                class="card-img-top"
+                src="<%= element.poster %>"
+                alt="Card image cap"
+              />
+              <div class="card-body">
+                <h5 class="card-title"><%= element.label %></h5>
+                <p class="card-text">
+                  <%= element.overview.substring(0, 300);%>
+                </p>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <div class="row my-8">
+          <div class="col-3"></div>
+          <% if (output.next) { %>
+          <div class="col-3">
+            <a
+              class="btn btn-primary"
+              href="?page=<%= output.next.page%>&search=<%=output.input%>"
+              >next</a
+            >
+          </div>
+          <% }; %> <% if (output.prev) { %>
+          <div class="col-3" style="direction: ltr">
+            <a
+              class="btn btn-secondary mx-8"
+              href="?page=<%= output.prev.page%>>&search=<%=output.input%>"
+              >prev</a
+            >
+          </div>
+          <% }; %>
+          <div class="col-3"></div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="row ms-4">
+          <div class="col-11 bg-white mx-3" style="text-align: center">
+            <strong>تابع منصة فلم</strong>
+          </div>
+          <div class="col-11 bg-white mx-3" style="text-align: center">
+            <label class="text-primary">MINASSAT FILM ORIGINAL</label>
+            <label class="text-danger">EGYTHEBESTORIGINAL</label>
+          </div>
+        </div>
+        <div class="ms-4 mt-3 row">
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">أفلام عربية</a>
+          </div>
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">أفلام أجنبية</a>
+          </div>
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">أفلام اش دي</a>
+          </div>
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">بلوراي</a>
+          </div>
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">أكشن</a>
+          </div>
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">كوميديا</a>
+          </div>
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">البح</a>
+          </div>
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">دراما</a>
+          </div>
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">مخيفة</a>
+          </div>
+          <div class="col-6">
+            <a href="" class="btn m-1 bg-white abtnleft">بلا معنى</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
